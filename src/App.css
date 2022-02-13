@@ -7,9 +7,8 @@
 
 .container {
   font-family: Typewriter;
-  color: white;
-  font-size: 2em;
-  text-shadow: 2px 2px #000;
+  font-size: 2.5em;
+  text-shadow: 3px 3px #888;
   overflow: hidden;
   margin: 0;
 }
@@ -18,14 +17,13 @@ body {
 }
 
 .background {
-  background-image: url('./upwk.jpg');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
-  background-position: center-top;
   background-position-x: 50%;
   background-position-y: 0%;
-  animation: zoomin 100s 1;
+  animation-name: zoomin;
+  animation-duration: 100s;
 }
 
 @keyframes zoomin {
