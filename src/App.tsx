@@ -1,4 +1,4 @@
-import React, { useRef, useMemo, useState, useEffect } from 'react'
+import { useRef, useMemo, useState, useEffect } from 'react'
 import './App.css'
 import text from './room40'
 
@@ -50,11 +50,19 @@ const images = [
   '3rd-class-ticket-l.jpg',
 ]
 
+let shuffled = images
+  .map(value => ({ value, sort: Math.random() }))
+  .sort((a, b) => a.sort - b.sort)
+  .map(({ value }) => value)
+
+const timeout = 20 //seconds
+
 function App() {
   const ref = useRef<HTMLCanvasElement>(null)
-  const ref2 = useRef<HTMLSourceElement>(null)
+  const ref2 = useRef<HTMLDivElement>(null)
   const [curr, setCurr] = useState(0)
   const [pos, setPos] = useState(-200)
+  const [shouldTransition, setShouldTransition] = useState(true)
 
   const lines = useMemo(() => {
     const l = text.split('\n')
@@ -63,40 +71,42 @@ function App() {
   }, [])
 
   useEffect(() => {
-    requestAnimationFrame(() => setPos(pos + 0.27))
-  }, [pos])
+    setTimeout(() => {
+      setCurr((curr + 1) % images.length)
+      setShouldTransition(false)
+    }, timeout * 1000)
+  }, [curr])
 
   useEffect(() => {
-    setTimeout(() => {
-      let newimg
-      do {
-        newimg = Math.floor(Math.random() * images.length)
-      } while (newimg === curr)
-
-      setCurr(newimg)
-      document.getAnimations().forEach(anim => {
-        anim.cancel()
-        anim.play()
-      })
-    }, 10000)
-  }, [curr])
+    // clearing and resetting it like this helps restart the keyframes
+    if (shouldTransition === false) {
+      setShouldTransition(true)
+    }
+  }, [shouldTransition])
 
   return (
     <div className="container">
       <div
         className="background"
+        ref={ref2}
         style={{
           position: 'absolute',
           top: 0,
           bottom: 0,
           left: 0,
           right: 0,
-          backgroundImage: 'url("./images/resized/' + images[curr] + '")',
+          backgroundImage: 'url("./images/resized/' + shuffled[curr] + '")',
+          animationDuration: timeout + 's',
+          animationName: shouldTransition ? 'zoomin' : '',
         }}
       />
       <canvas ref={ref} />
-      <div style={{ position: 'absolute', top: -pos, left: 20 }}>
-        <Typist stdTypingDelay={50} avgTypingDelay={120}>
+      <div style={{ position: 'absolute', top: -pos, left: 20, width: 10000 }}>
+        <Typist
+          stdTypingDelay={50}
+          avgTypingDelay={120}
+          onLineTyped={() => setPos(pos + 12)}
+        >
           {lines.map((r, i) => (
             <div key={r + '_' + i}>
               {r}
@@ -115,7 +125,6 @@ function App() {
         }}
       >
         <source
-          ref={ref2}
           src="https://s3.us-east-2.amazonaws.com/myloveydove.com/220212_00.mp3"
           type="audio/mpeg"
         />
