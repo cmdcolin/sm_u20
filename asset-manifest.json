@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "./static/css/main.4b65bf05.css",
-    "main.js": "./static/js/main.fbd36b92.js",
+    "main.js": "./static/js/main.dcee2384.js",
     "static/media/ErikasBuero.ttf": "./static/media/ErikasBuero.6f20f9a3ada25b66e841.ttf",
     "index.html": "./index.html",
     "main.4b65bf05.css.map": "./static/css/main.4b65bf05.css.map",
-    "main.fbd36b92.js.map": "./static/js/main.fbd36b92.js.map"
+    "main.dcee2384.js.map": "./static/js/main.dcee2384.js.map"
   },
   "entrypoints": [
     "static/css/main.4b65bf05.css",
-    "static/js/main.fbd36b92.js"
+    "static/js/main.dcee2384.js"
   ]
 }
