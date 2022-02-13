@@ -46,7 +46,8 @@ const images = [
   'original.jpg',
   'original.renamed.jpg',
   'PD-206_German-subs.jpg',
-  'Waterloo-lusitania.jpg'
+  'Waterloo-lusitania.jpg',
+  '3rd-class-ticket-l.jpg',
 ]
 
 function App() {
