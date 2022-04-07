@@ -55,7 +55,7 @@ let shuffled = images
   .sort((a, b) => a.sort - b.sort)
   .map(({ value }) => value)
 
-const timeout = 20 //seconds
+const timeout = 10 //seconds
 
 function App() {
   const ref = useRef<HTMLCanvasElement>(null)
@@ -80,7 +80,10 @@ function App() {
   useEffect(() => {
     // clearing and resetting it like this helps restart the keyframes
     if (shouldTransition === false) {
-      setShouldTransition(true)
+      console.log('here2', shouldTransition)
+      setTimeout(() => {
+        setShouldTransition(true)
+      }, 100)
     }
   }, [shouldTransition])
 
@@ -125,7 +128,7 @@ function App() {
         }}
       >
         <source
-          src="https://s3.us-east-2.amazonaws.com/myloveydove.com/220212_00.mp3"
+          src="https://radioshow-s3uploadbucket-hkjnp01vb17m.s3.us-east-2.amazonaws.com/sm_u20.mp3"
           type="audio/mpeg"
         />
       </audio>
